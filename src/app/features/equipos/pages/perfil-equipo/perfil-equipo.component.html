@@ -1,0 +1,25 @@
+<h2>Perfil del equipo</h2>
+
+<div *ngIf="equipo; else cargando">
+  <p><strong>Nombre:</strong> {{ equipo.nombre }}</p>
+  <p><strong>Categoría:</strong> {{ equipo.categoria }}</p>
+  <p><strong>Sexo:</strong> {{ equipo.sexo }}</p>
+  <p><strong>Primera equipación:</strong> {{ equipo.primera_camiseta }} / {{ equipo.primera_pantalon }}</p>
+  <p *ngIf="equipo.segunda_camiseta || equipo.segunda_pantalon">
+    <strong>Segunda equipación:</strong> {{ equipo.segunda_camiseta }} / {{ equipo.segunda_pantalon }}
+  </p>
+  <p><strong>Descripción:</strong> {{ equipo.descripcion }}</p>
+
+  <h3>Jugadores</h3>
+  <ul>
+    <li *ngFor="let j of equipo.jugadores">
+      {{ j.nombre }} ({{ j.posicion }})
+    </li>
+  </ul>
+
+  <button (click)="editarEquipo()">Editar equipo</button>
+</div>
+
+<ng-template #cargando>
+  <p>Cargando equipo...</p>
+</ng-template>

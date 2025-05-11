@@ -1,0 +1,33 @@
+<div class="inicio-container" style="display: flex; gap: 2rem;">
+    <!-- Columna izquierda: Jugador -->
+    <div style="flex: 1;">
+      <h2>Mi jugador</h2>
+      <ng-container *ngIf="jugador; else crearJugadorBlock">
+        <p>Nombre: {{ jugador.nombre }}</p>
+        <p>Posición: {{ jugador.posicion }}</p>
+        <button (click)="irAlPerfilJugador()">Ver perfil</button>
+      </ng-container>
+      <ng-template #crearJugadorBlock>
+        <p>No has creado un jugador aún.</p>
+        <button (click)="crearJugador()">Crear jugador</button>
+      </ng-template>
+    </div>
+  
+    <!-- Columna derecha: Equipos -->
+    <div style="flex: 1;">
+      <h2>Mis equipos</h2>
+      <ng-container *ngIf="equipos.length > 0; else crearEquipoBlock">
+        <ul>
+          <li *ngFor="let equipo of equipos">
+            {{ equipo.nombre }} - {{ equipo.categoria }}
+            <button (click)="irAlPerfilEquipo(equipo.id)">Ver</button>
+          </li>
+        </ul>
+      </ng-container>
+      <ng-template #crearEquipoBlock>
+        <p>No has creado equipos aún.</p>
+      </ng-template>
+      <button (click)="crearEquipo()">Crear equipo</button>
+    </div>
+  </div>
+  

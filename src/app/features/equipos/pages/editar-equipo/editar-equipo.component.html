@@ -1,0 +1,21 @@
+<h2>Editar equipo</h2>
+<form (ngSubmit)="onSubmit()" #formRef="ngForm">
+  <label>Nombre: <input [(ngModel)]="form.nombre" name="nombre" required /></label><br />
+  <label>Categoría:
+    <select [(ngModel)]="form.categoria" name="categoria">
+      <option *ngFor="let c of categorias" [value]="c">{{ c }}</option>
+    </select>
+  </label><br />
+  <label>Dirección: <input [(ngModel)]="form.direccion" name="direccion" required /></label><br />
+  <label>1ª Camiseta: <input [(ngModel)]="form.primera_camiseta" name="primera_camiseta" /></label><br />
+  <label>1º Pantalón: <input [(ngModel)]="form.primera_pantalon" name="primera_pantalon" /></label><br />
+  <label>2ª Camiseta: <input [(ngModel)]="form.segunda_camiseta" name="segunda_camiseta" /></label><br />
+  <label>2º Pantalón: <input [(ngModel)]="form.segunda_pantalon" name="segunda_pantalon" /></label><br />
+  <label>Sexo:
+    <select [(ngModel)]="form.sexo" name="sexo">
+      <option *ngFor="let s of sexos" [value]="s">{{ s }}</option>
+    </select>
+  </label><br />
+  <label>Descripción: <textarea [(ngModel)]="form.descripcion" name="descripcion"></textarea></label><br />
+  <button type="submit">Guardar cambios</button>
+</form>
