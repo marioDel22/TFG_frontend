@@ -1,21 +1,54 @@
-<h2>Crear equipo</h2>
-<form (ngSubmit)="onSubmit()" #formRef="ngForm">
-  <label>Nombre: <input [(ngModel)]="form.nombre" name="nombre" required /></label><br />
-  <label>Categoría:
-    <select [(ngModel)]="form.categoria" name="categoria">
-      <option *ngFor="let c of categorias" [value]="c">{{ c }}</option>
-    </select>
-  </label><br />
-  <label>Dirección (lugar de partidos): <input [(ngModel)]="form.direccion" name="direccion" required /></label><br />
-  <label>1ª Camiseta: <input [(ngModel)]="form.primera_camiseta" name="primera_camiseta" /></label><br />
-  <label>1º Pantalón: <input [(ngModel)]="form.primera_pantalon" name="primera_pantalon" /></label><br />
-  <label>2ª Camiseta: <input [(ngModel)]="form.segunda_camiseta" name="segunda_camiseta" /></label><br />
-  <label>2º Pantalón: <input [(ngModel)]="form.segunda_pantalon" name="segunda_pantalon" /></label><br />
-  <label>Sexo:
-    <select [(ngModel)]="form.sexo" name="sexo">
-      <option *ngFor="let s of sexos" [value]="s">{{ s }}</option>
-    </select>
-  </label><br />
-  <label>Descripción: <textarea [(ngModel)]="form.descripcion" name="descripcion"></textarea></label><br />
-  <button type="submit">Crear</button>
-</form>
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h2 class="text-center mb-4">Crear equipo</h2>
+      <form (ngSubmit)="onSubmit()" #formRef="ngForm">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="nombre" class="form-label">Nombre del equipo</label>
+            <input id="nombre" [(ngModel)]="form.nombre" name="nombre" required class="form-control" />
+          </div>
+          <div class="col-md-6">
+            <label for="categoria" class="form-label">Categoría</label>
+            <select id="categoria" [(ngModel)]="form.categoria" name="categoria" class="form-select">
+              <option *ngFor="let c of categorias" [value]="c">{{ c }}</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="direccion" class="form-label">Dirección (lugar de partidos)</label>
+            <input id="direccion" [(ngModel)]="form.direccion" name="direccion" required class="form-control" />
+          </div>
+          <div class="col-md-6">
+            <label for="sexo" class="form-label">Sexo</label>
+            <select id="sexo" [(ngModel)]="form.sexo" name="sexo" class="form-select">
+              <option *ngFor="let s of sexos" [value]="s">{{ s }}</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="primera_camiseta" class="form-label">1ª Camiseta</label>
+            <input id="primera_camiseta" [(ngModel)]="form.primera_camiseta" name="primera_camiseta" class="form-control" />
+          </div>
+          <div class="col-md-6">
+            <label for="primera_pantalon" class="form-label">1º Pantalón</label>
+            <input id="primera_pantalon" [(ngModel)]="form.primera_pantalon" name="primera_pantalon" class="form-control" />
+          </div>
+          <div class="col-md-6">
+            <label for="segunda_camiseta" class="form-label">2ª Camiseta</label>
+            <input id="segunda_camiseta" [(ngModel)]="form.segunda_camiseta" name="segunda_camiseta" class="form-control" />
+          </div>
+          <div class="col-md-6">
+            <label for="segunda_pantalon" class="form-label">2º Pantalón</label>
+            <input id="segunda_pantalon" [(ngModel)]="form.segunda_pantalon" name="segunda_pantalon" class="form-control" />
+          </div>
+          <div class="col-12">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea id="descripcion" [(ngModel)]="form.descripcion" name="descripcion" class="form-control" rows="4"></textarea>
+          </div>
+          <div class="col-12 text-center mt-3">
+            <button type="submit" class="btn btn-primary px-5">Crear equipo</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

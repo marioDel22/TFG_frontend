@@ -1,1 +1,36 @@
-<router-outlet></router-outlet>
+<header class="bg-light py-3 mb-4">
+  <div class="container d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center">
+      <img src="assets/logo.png" alt="Logo" class="me-3" style="height: 40px;">
+      <h1 class="h4 mb-0">Basketconecta</h1>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/home">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/equipos">Equipos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/jugadores">Jugadores</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/perfil">Perfil</a>
+          </li>
+          <li class="nav-item">
+            <button (click)="logout()" class="btn btn-outline-danger">Logout</button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main class="container py-4">
+  <router-outlet></router-outlet>
+</main>

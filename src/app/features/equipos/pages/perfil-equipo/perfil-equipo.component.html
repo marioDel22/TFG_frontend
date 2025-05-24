@@ -1,25 +1,58 @@
-<h2>Perfil del equipo</h2>
+<div class="container">
+  <div class="profile-container">
+    <div *ngIf="equipo; else cargando">
+      <div class="profile-header">
+        <h2 class="text-center mb-2">{{ equipo.nombre }}</h2>
+        <div class="profile-actions">
+          <button (click)="editarEquipo()" class="btn-primary">Editar equipo</button>
+        </div>
+      </div>
 
-<div *ngIf="equipo; else cargando">
-  <p><strong>Nombre:</strong> {{ equipo.nombre }}</p>
-  <p><strong>Categoría:</strong> {{ equipo.categoria }}</p>
-  <p><strong>Sexo:</strong> {{ equipo.sexo }}</p>
-  <p><strong>Primera equipación:</strong> {{ equipo.primera_camiseta }} / {{ equipo.primera_pantalon }}</p>
-  <p *ngIf="equipo.segunda_camiseta || equipo.segunda_pantalon">
-    <strong>Segunda equipación:</strong> {{ equipo.segunda_camiseta }} / {{ equipo.segunda_pantalon }}
-  </p>
-  <p><strong>Descripción:</strong> {{ equipo.descripcion }}</p>
+      <div class="profile-content grid grid-2">
+        <div class="profile-section">
+          <h3>Información del equipo</h3>
+          <div class="info-card">
+            <div class="info-item">
+              <strong>Categoría:</strong>
+              <span>{{ equipo.categoria }}</span>
+            </div>
+            <div class="info-item">
+              <strong>Sexo:</strong>
+              <span>{{ equipo.sexo }}</span>
+            </div>
+            <div class="info-item">
+              <strong>Primera equipación:</strong>
+              <span>{{ equipo.primera_camiseta }} / {{ equipo.primera_pantalon }}</span>
+            </div>
+            <div class="info-item" *ngIf="equipo.segunda_camiseta || equipo.segunda_pantalon">
+              <strong>Segunda equipación:</strong>
+              <span>{{ equipo.segunda_camiseta }} / {{ equipo.segunda_pantalon }}</span>
+            </div>
+            <div class="info-item">
+              <strong>Descripción:</strong>
+              <p class="description">{{ equipo.descripcion }}</p>
+            </div>
+          </div>
+        </div>
 
-  <h3>Jugadores</h3>
-  <ul>
-    <li *ngFor="let j of equipo.jugadores">
-      {{ j.nombre }} ({{ j.posicion }})
-    </li>
-  </ul>
+        <div class="profile-section">
+          <h3>Plantilla</h3>
+          <div class="players-card">
+            <ul class="players-list">
+              <li *ngFor="let j of equipo.jugadores" class="player-item">
+                <span class="player-name">{{ j.nombre }}</span>
+                <span class="player-position">{{ j.posicion }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <button (click)="editarEquipo()">Editar equipo</button>
+    <ng-template #cargando>
+      <div class="loading-container">
+        <p>Cargando equipo...</p>
+      </div>
+    </ng-template>
+  </div>
 </div>
-
-<ng-template #cargando>
-  <p>Cargando equipo...</p>
-</ng-template>
