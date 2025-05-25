@@ -1,0 +1,23 @@
+<h2>Registro de nuevo usuario</h2>
+
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+  <label>Usuario:
+    <input [(ngModel)]="form.username" name="username" required />
+  </label><br />
+
+  <label>Email:
+    <input type="email" [(ngModel)]="form.email" name="email" required />
+  </label><br />
+
+  <label>Contraseña:
+    <input type="password" [(ngModel)]="form.password" name="password" required />
+  </label><br />
+
+  <label>Repetir contraseña:
+    <input type="password" [(ngModel)]="form.re_password" name="re_password" required />
+  </label><br />
+
+  <button type="submit">Registrarse</button>
+
+  <p *ngIf="error" style="color: red;">{{ error }}</p>
+</form>

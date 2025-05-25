@@ -1,0 +1,23 @@
+<h2>Perfil del jugador</h2>
+
+<div *ngIf="jugador; else cargando">
+  <p><strong>Nombre:</strong> {{ jugador.nombre }}</p>
+  <p><strong>Edad:</strong> {{ jugador.edad }}</p>
+  <p><strong>Altura:</strong> {{ jugador.altura }} m</p>
+  <p><strong>Posición:</strong> {{ jugador.posicion }}</p>
+  <p><strong>Nivel:</strong> {{ jugador.nivel }}</p>
+  <p><strong>Correo:</strong> {{ jugador.correo }}</p>
+  <p><strong>Dirección:</strong> {{ jugador.direccion }}</p>
+  <p><strong>Sexo:</strong> {{ jugador.sexo }}</p>
+  <p><strong>Descripción:</strong> {{ jugador.descripcion }}</p>
+
+
+  <button class="btn btn-primary mt-3" (click)="router.navigate(['/jugador', jugador.id, 'editar'])">
+    Editar perfil
+  </button>
+
+</div>
+
+<ng-template #cargando>
+  <p>Cargando jugador...</p>
+</ng-template>
