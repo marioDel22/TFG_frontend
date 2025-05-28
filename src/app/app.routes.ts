@@ -8,6 +8,12 @@ import { EditarEquipoComponent } from './features/equipos/pages/editar-equipo/ed
 import { RegistroComponent } from './features/auth/pages/registro/registro.component';
 import { PerfilJugadorComponent } from './features/jugadores/pages/perfil-jugador/perfil-jugador.component';
 import { EditarJugadorComponent } from './features/jugadores/pages/editar-jugador/editar-jugador.component';
+import { CrearAnuncioEquipoComponent } from './features/anuncios/pages/crear-anuncio-equipo/crear-anuncio-equipo.component';
+import { EditarAnuncioEquipoComponent } from './features/anuncios/pages/editar-anuncio-equipo/editar-anuncio-equipo.component';
+import { CrearAnuncioJugadorComponent } from './features/anuncios/pages/crear-anuncio-jugador/crear-anuncio-jugador.component';
+
+
+
 
 
 
@@ -25,5 +31,10 @@ export const routes: Routes = [
     { path: 'registro', component: RegistroComponent },
     { path: 'jugador/:id', component: PerfilJugadorComponent },
     { path: 'jugador/:id/editar', component: EditarJugadorComponent },
+    { path: 'anuncio-equipo/nuevo/:equipoId', component: CrearAnuncioEquipoComponent },
+    { path: 'anuncio-equipo/editar/:id', component: EditarAnuncioEquipoComponent },
+    { path: 'anuncio-jugador/nuevo', component: CrearAnuncioJugadorComponent },
+    { path: 'anuncio-jugador/:id', loadComponent: () => import('./features/jugadores/pages/ver-anuncio-jugador.component').then(m => m.VerAnuncioJugadorComponent) },
     { path: '**', redirectTo: 'login' }
+    
   ];

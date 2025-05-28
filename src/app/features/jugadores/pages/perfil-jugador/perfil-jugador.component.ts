@@ -4,6 +4,28 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
+interface AnuncioJugador {
+  id: number;
+  disponibilidad_dia: string;
+  disponibilidad_horaria: string;
+  sexo: string;
+  descripcion: string;
+}
+
+interface Jugador {
+  id: number;
+  nombre: string;
+  edad: number;
+  altura: number;
+  posicion: string;
+  nivel: string;
+  correo: string;
+  direccion: string;
+  sexo: string;
+  descripcion: string;
+  anuncio?: AnuncioJugador;
+}
+
 @Component({
   selector: 'app-perfil-jugador',
   standalone: true,
@@ -11,7 +33,8 @@ import { Router } from '@angular/router';
   templateUrl: './perfil-jugador.component.html'
 })
 export class PerfilJugadorComponent implements OnInit {
-  jugador: any = null;
+  jugador: Jugador | null = null;
+  anuncio: AnuncioJugador | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,9 +44,22 @@ export class PerfilJugadorComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    this.http.get(`http://localhost:8000/api/jugadores/${id}/`).subscribe({
-      next: (res) => this.jugador = res,
+    this.http.get<Jugador>(`http://localhost:8000/api/jugadores/${id}/`).subscribe({
+      next: (res) => {
+        this.jugador = res;
+        this.anuncio = res.anuncio || null;
+      },
       error: (err) => console.error('Error al obtener jugador', err)
     });
+  }
+
+  publicarAnuncio() {
+    this.router.navigate(['/anuncio-jugador/nuevo']);
+  }
+
+  verAnuncio() {
+    if (this.anuncio && this.anuncio.id) {
+      this.router.navigate(['/anuncio-jugador', this.anuncio.id]);
+    }
   }
 }

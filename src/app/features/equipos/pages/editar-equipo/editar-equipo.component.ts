@@ -14,7 +14,6 @@ export class EditarEquipoComponent implements OnInit {
   form: any = {
     nombre: '',
     categoria: '',
-    direccion: '',
     primera_camiseta: '',
     primera_pantalon: '',
     segunda_camiseta: '',
@@ -36,15 +35,27 @@ export class EditarEquipoComponent implements OnInit {
   ngOnInit() {
     this.equipoId = this.route.snapshot.paramMap.get('id')!;
     this.http.get(`http://localhost:8000/api/equipos/${this.equipoId}/`).subscribe({
-      next: (res) => this.form = res,
-      error: () => console.error('No se pudo cargar el equipo')
+      next: (res) => {
+        console.log('Datos del equipo cargados:', res); // Para depuración
+        this.form = res;
+      },
+      error: (err) => {
+        console.error('Error al cargar el equipo:', err);
+      }
     });
   }
 
   onSubmit() {
+    console.log('Enviando datos actualizados:', this.form); // Para depuración
     this.http.patch(`http://localhost:8000/api/equipos/${this.equipoId}/`, this.form).subscribe({
-      next: () => this.router.navigate(['/inicio']),
-      error: (err) => console.error('Error al actualizar el equipo', err)
+      next: (res: any) => {
+        console.log('Respuesta del servidor:', res); // Para depuración
+        this.router.navigate(['/equipo', this.equipoId]);
+      },
+      error: (err) => {
+        console.error('Error al actualizar el equipo:', err);
+        // Aquí podrías mostrar un mensaje de error al usuario
+      }
     });
   }
 }

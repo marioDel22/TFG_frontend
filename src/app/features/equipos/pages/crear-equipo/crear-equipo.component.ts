@@ -14,7 +14,6 @@ export class CrearEquipoComponent {
   form: any = {
     nombre: '',
     categoria: 'senior',
-    direccion: '',
     primera_camiseta: '',
     primera_pantalon: '',
     segunda_camiseta: '',
@@ -29,9 +28,21 @@ export class CrearEquipoComponent {
   constructor(private http: HttpClient, private router: Router) {}
 
   onSubmit() {
+    console.log('Enviando datos:', this.form); // Para depuración
     this.http.post('http://localhost:8000/api/equipos/', this.form).subscribe({
-      next: () => this.router.navigate(['/inicio']),
-      error: (err) => console.error('Error al crear equipo', err)
+      next: (res: any) => {
+        console.log('Respuesta del servidor:', res); // Para depuración
+        if (res && res.id) {
+          this.router.navigate(['/equipo', res.id]);
+        } else {
+          console.error('La respuesta del servidor no contiene un ID válido');
+          this.router.navigate(['/inicio']);
+        }
+      },
+      error: (err) => {
+        console.error('Error al crear equipo:', err);
+        // Aquí podrías mostrar un mensaje de error al usuario
+      }
     });
   }
 }

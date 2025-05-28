@@ -1,0 +1,37 @@
+<h2>Editar anuncio</h2>
+
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+  <label>Día de partido:
+    <select [(ngModel)]="form.dia_partido" name="dia_partido" required>
+      <option *ngFor="let d of dias" [value]="d">{{ d }}</option>
+    </select>
+  </label><br />
+  <label>Horario de partido:
+    <select [(ngModel)]="form.horario_partido" name="horario_partido" required>
+      <option *ngFor="let h of horarios" [value]="h">{{ h }}</option>
+    </select>
+  </label><br />
+  <label>Dirección del partido:
+    <input [(ngModel)]="form.direccion_partido" name="direccion_partido" required />
+  </label><br />
+  <hr />
+  <label>Día de entrenamiento:
+    <select [(ngModel)]="form.dia_entrenamiento" name="dia_entrenamiento">
+      <option value="">—</option>
+      <option *ngFor="let d of dias" [value]="d">{{ d }}</option>
+    </select>
+  </label><br />
+  <label>Horario de entrenamiento:
+    <select [(ngModel)]="form.horario_entrenamiento" name="horario_entrenamiento">
+      <option value="">—</option>
+      <option *ngFor="let h of horarios" [value]="h">{{ h }}</option>
+    </select>
+  </label><br />
+  <label>Dirección de entrenamiento:
+    <input [(ngModel)]="form.direccion_entrenamiento" name="direccion_entrenamiento" />
+  </label><br />
+  <label>Descripción:
+    <textarea [(ngModel)]="form.descripcion" name="descripcion"></textarea>
+  </label><br />
+  <button type="submit" class="btn btn-primary">Guardar cambios</button>
+</form>

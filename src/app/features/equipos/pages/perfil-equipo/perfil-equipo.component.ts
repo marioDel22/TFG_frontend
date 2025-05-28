@@ -15,7 +15,7 @@ export class PerfilEquipoComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
-    private router: Router
+    public router: Router,
   ) {}
 
   ngOnInit(): void {

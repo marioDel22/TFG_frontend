@@ -1,0 +1,27 @@
+<div class="container py-4">
+    <div *ngIf="anuncio; else cargando">
+      <h2 class="mb-3 text-center">Anuncio de {{ anuncio.jugador.nombre }}</h2>
+  
+      <div class="card p-3 mb-4">
+        <p><strong>Día disponible:</strong> {{ anuncio.disponibilidad_dia }}</p>
+        <p><strong>Horario disponible:</strong> {{ anuncio.disponibilidad_horaria }}</p>
+        <p><strong>Nivel:</strong> {{ anuncio.jugador.nivel }}</p>
+        <p><strong>Altura:</strong> {{ anuncio.jugador.altura }} m</p>
+        <p><strong>Posición:</strong> {{ anuncio.jugador.posicion }}</p>
+        <p><strong>Descripción:</strong> {{ anuncio.descripcion }}</p>
+        <p><strong>Sexo:</strong> {{ anuncio.sexo }}</p>
+        <p><strong>Creado el:</strong> {{ anuncio.creado | date:'medium' }}</p>
+      </div>
+  
+      <div class="d-flex gap-2">
+        <button class="btn btn-outline-primary" (click)="editarAnuncio()">Editar</button>
+        <button class="btn btn-outline-danger" (click)="eliminarAnuncio()">Eliminar</button>
+        <button class="btn btn-success" (click)="abrirChat()">Ir al chat</button>
+      </div>
+    </div>
+  
+    <ng-template #cargando>
+      <p>Cargando anuncio...</p>
+    </ng-template>
+  </div>
+  

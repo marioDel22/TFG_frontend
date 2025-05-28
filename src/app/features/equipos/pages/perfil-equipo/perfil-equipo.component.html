@@ -47,7 +47,38 @@
           </div>
         </div>
       </div>
+
+      <!-- 🔹 Anuncio: crear o mostrar -->
+      <div class="profile-section mt-4">
+        <h3>Anuncio del equipo</h3>
+
+        <!-- Si NO hay anuncio -->
+        <div *ngIf="!equipo.anuncio">
+          <p>Este equipo aún no tiene un anuncio publicado.</p>
+          <button class="btn btn-outline-primary" (click)="router.navigate(['/anuncio-equipo/nuevo', equipo.id])">
+            Publicar anuncio
+          </button>
+        </div>
+
+        <!-- Si ya existe un anuncio -->
+        <div *ngIf="equipo.anuncio">
+          <p><strong>Partido:</strong> {{ equipo.anuncio.dia_partido }} - {{ equipo.anuncio.horario_partido }}</p>
+          <p><strong>Dirección partido:</strong> {{ equipo.anuncio.direccion_partido }}</p>
+          <p><strong>Entrenamiento:</strong> {{ equipo.anuncio.dia_entrenamiento || '—' }} - {{ equipo.anuncio.horario_entrenamiento || '—' }}</p>
+          <p><strong>Dirección entrenamiento:</strong> {{ equipo.anuncio.direccion_entrenamiento || '—' }}</p>
+          <p><strong>Descripción:</strong> {{ equipo.anuncio.descripcion }}</p>
+          <button
+            class="btn btn-outline-secondary"
+            (click)="router.navigate(['/anuncio-equipo/editar', equipo.anuncio.id])"
+            *ngIf="equipo.anuncio"
+          >
+            Editar anuncio
+          </button>
+        </div>
+      </div>
     </div>
+
+    
 
     <ng-template #cargando>
       <div class="loading-container">

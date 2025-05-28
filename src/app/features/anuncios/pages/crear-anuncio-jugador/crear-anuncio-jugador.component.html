@@ -1,0 +1,27 @@
+<h2>Crear anuncio como jugador</h2>
+
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+  <label>Día disponible:
+    <select [(ngModel)]="form.disponibilidad_dia" name="disponibilidad_dia" required>
+      <option *ngFor="let d of dias" [value]="d">{{ d }}</option>
+    </select>
+  </label><br />
+
+  <label>Horario disponible:
+    <select [(ngModel)]="form.disponibilidad_horaria" name="disponibilidad_horaria" required>
+      <option *ngFor="let h of horarios" [value]="h">{{ h }}</option>
+    </select>
+  </label><br />
+
+  <label>Sexo buscado por el equipo:
+    <select [(ngModel)]="form.sexo" name="sexo" required>
+      <option *ngFor="let s of sexos" [value]="s">{{ s }}</option>
+    </select>
+  </label><br />
+
+  <label>Descripción:
+    <textarea [(ngModel)]="form.descripcion" name="descripcion"></textarea>
+  </label><br />
+
+  <button type="submit" class="btn btn-primary">Publicar anuncio</button>
+</form>

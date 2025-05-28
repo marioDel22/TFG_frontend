@@ -16,6 +16,22 @@
     Editar perfil
   </button>
 
+  <div *ngIf="!anuncio">
+    <button class="btn btn-primary" (click)="publicarAnuncio()">Publicar anuncio</button>
+  </div>
+  <div *ngIf="anuncio">
+    <button class="btn btn-outline-primary" (click)="verAnuncio()">Ver anuncio</button>
+  </div>
+
+  <!-- Si existe anuncio -->
+  <div *ngIf="anuncio" class="mt-4">
+    <h3>Anuncio publicado</h3>
+    <p><strong>Día disponible:</strong> {{ anuncio.disponibilidad_dia }}</p>
+    <p><strong>Horario disponible:</strong> {{ anuncio.disponibilidad_horaria }}</p>
+    <p><strong>Sexo buscado:</strong> {{ anuncio.sexo }}</p>
+    <p><strong>Descripción:</strong> {{ anuncio.descripcion }}</p>
+  </div>
+
 </div>
 
 <ng-template #cargando>

@@ -1,0 +1,35 @@
+<h2>Crear anuncio para equipo</h2>
+
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+  <h4>Partido</h4>
+  <label>Día:
+    <select [(ngModel)]="form.dia_partido" name="dia_partido">
+      <option *ngFor="let dia of dias" [value]="dia">{{ dia }}</option>
+    </select>
+  </label><br />
+  <label>Horario:
+    <select [(ngModel)]="form.horario_partido" name="horario_partido">
+      <option *ngFor="let h of horarios" [value]="h">{{ h }}</option>
+    </select>
+  </label><br />
+  <label>Dirección: <input [(ngModel)]="form.direccion_partido" name="direccion_partido" /></label><br />
+
+  <h4>Entrenamiento (opcional)</h4>
+  <label>Día:
+    <select [(ngModel)]="form.dia_entrenamiento" name="dia_entrenamiento">
+      <option value="">--</option>
+      <option *ngFor="let dia of dias" [value]="dia">{{ dia }}</option>
+    </select>
+  </label><br />
+  <label>Horario:
+    <select [(ngModel)]="form.horario_entrenamiento" name="horario_entrenamiento">
+      <option value="">--</option>
+      <option *ngFor="let h of horarios" [value]="h">{{ h }}</option>
+    </select>
+  </label><br />
+  <label>Dirección: <input [(ngModel)]="form.direccion_entrenamiento" name="direccion_entrenamiento" /></label><br />
+
+  <label>Descripción: <textarea [(ngModel)]="form.descripcion" name="descripcion"></textarea></label><br />
+
+  <button type="submit">Publicar anuncio</button>
+</form>
