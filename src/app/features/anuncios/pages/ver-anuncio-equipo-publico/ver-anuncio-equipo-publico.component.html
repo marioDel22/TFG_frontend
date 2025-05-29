@@ -1,0 +1,23 @@
+<div class="container py-4">
+  <div *ngIf="anuncio; else cargando">
+    <h2 class="mb-3 text-center">Anuncio del equipo {{ anuncio.equipo?.nombre }}</h2>
+    <div class="card p-3 mb-4">
+      <p><strong>Categoría:</strong> {{ anuncio.equipo?.categoria }}</p>
+      <p><strong>Sexo:</strong> {{ anuncio.equipo.sexo }}</p>
+      <p><strong>Día de partido:</strong> {{ anuncio.dia_partido }}</p>
+      <p><strong>Horario de partido:</strong> {{ anuncio.horario_partido }}</p>
+      <p><strong>Dirección de partido:</strong> {{ anuncio.direccion_partido }}</p>
+      <p><strong>Día de entrenamiento:</strong> {{ anuncio.dia_entrenamiento }}</p>
+      <p><strong>Horario de entrenamiento:</strong> {{ anuncio.horario_entrenamiento }}</p>
+      <p><strong>Dirección de entrenamiento:</strong> {{ anuncio.direccion_entrenamiento }}</p>
+      <p><strong>Descripción:</strong> {{ anuncio.descripcion }}</p>
+      <p><strong>Creado el:</strong> {{ anuncio.creado | date:'medium' }}</p>
+    </div>
+    <div class="d-flex gap-2">
+      <button class="btn btn-primary" (click)="mandarMensaje()">Mandar mensaje</button>
+    </div>
+  </div>
+  <ng-template #cargando>
+    <p>Cargando anuncio...</p>
+  </ng-template>
+</div>

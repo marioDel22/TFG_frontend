@@ -14,6 +14,8 @@ import { CrearAnuncioJugadorComponent } from './features/anuncios/pages/crear-an
 import { ListadoAnunciosJugadorComponent } from './features/anuncios/pages/listado-anuncios-jugador/listado-anuncios-jugador.component';
 import { VerAnuncioEquipoComponent } from './features/anuncios/pages/ver-anuncio-equipo/ver-anuncio-equipo.component';
 import { ListadoAnunciosEquipoComponent } from './features/anuncios/pages/listado-anuncios-equipo/listado-anuncios-equipo.component';
+import { VerAnuncioJugadorPublicoComponent } from './features/anuncios/pages/ver-anuncio-jugador-publico/ver-anuncio-jugador-publico.component';
+import { VerAnuncioEquipoPublicoComponent } from './features/anuncios/pages/ver-anuncio-equipo-publico/ver-anuncio-equipo-publico.component';
 
 
 
@@ -45,7 +47,9 @@ export const routes: Routes = [
     { path: 'anuncios-jugadores',  loadComponent: () => import('./features/anuncios/pages/ver-anuncios-jugadores/ver-anuncios-jugadores.component').then(m => m.VerAnunciosJugadoresComponent)    },
     { path: 'anuncios-jugador', loadComponent: () => import('./features/anuncios/pages/listado-anuncios-jugador/listado-anuncios-jugador.component').then(m => m.ListadoAnunciosJugadorComponent)    },
     { path: 'anuncios-equipos', component: ListadoAnunciosEquipoComponent },
+    { path: 'ver-anuncio-jugador-publico/:id', component: VerAnuncioJugadorPublicoComponent },
     { path: 'buscar-jugadores', component: ListadoAnunciosJugadorComponent },
+    { path: 'ver-anuncio-equipo-publico/:id', component: VerAnuncioEquipoPublicoComponent },
     { path: '**', redirectTo: 'login' }
     
   ];

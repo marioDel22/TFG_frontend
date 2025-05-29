@@ -84,6 +84,6 @@ export class ListadoAnunciosEquipoComponent implements OnInit {
   }
 
   verAnuncio(id: number) {
-    this.router.navigate(['/anuncios-equipo', id]);
+    this.router.navigate(['/ver-anuncio-equipo-publico', id]);
   }
 }
