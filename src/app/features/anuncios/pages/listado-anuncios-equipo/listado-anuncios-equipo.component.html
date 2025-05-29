@@ -1,0 +1,76 @@
+<div class="container">
+    <h2 class="text-center mb-4">Buscar anuncios de equipos</h2>
+  
+    <form (ngSubmit)="cargarAnuncios()" class="mb-4">
+      <div class="row g-2">
+        <div class="form-group col-md-3">
+          <label for="distancia">Distancia</label>
+          <select id="distancia" class="form-control" [(ngModel)]="filtros.distancia" name="distancia">
+            <option value="">Indiferente</option>
+            <option value="1">Menos de 1 KM</option>
+            <option value="3">Menos de 3 KM</option>
+            <option value="5">Menos de 5 KM</option>
+            <option value="10">Menos de 10 KM</option>
+            <option value="20">Menos de 20 KM</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label>Día partido</label>
+          <select class="form-select" [(ngModel)]="filtros.dia_partido" name="dia_partido">
+            <option value="">Todos</option>
+            <option *ngFor="let d of dias" [value]="d">{{ d }}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label>Horario partido</label>
+          <select class="form-select" [(ngModel)]="filtros.horario_partido" name="horario_partido">
+            <option value="">Todos</option>
+            <option *ngFor="let h of horarios" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label>Día entrenamiento</label>
+          <select class="form-select" [(ngModel)]="filtros.dia_entrenamiento" name="dia_entrenamiento">
+            <option value="">Todos</option>
+            <option *ngFor="let d of dias" [value]="d">{{ d }}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label>Horario entrenamiento</label>
+          <select class="form-select" [(ngModel)]="filtros.horario_entrenamiento" name="horario_entrenamiento">
+            <option value="">Todos</option>
+            <option *ngFor="let h of horarios" [value]="h">{{ h }}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label>Sexo</label>
+          <select class="form-select" [(ngModel)]="filtros.sexo" name="sexo">
+            <option value="">Todos</option>
+            <option *ngFor="let s of sexos" [value]="s">{{ s }}</option>
+          </select>
+        </div>
+        <div class="col-md-2 d-flex align-items-end">
+          <button type="submit" class="btn btn-primary w-100">Buscar</button>
+        </div>
+      </div>
+    </form>
+  
+    <div *ngIf="anuncios.length === 0" class="text-center">
+      <p>No hay anuncios disponibles con los filtros seleccionados.</p>
+    </div>
+  
+    <div *ngIf="anuncios.length > 0">
+      <div *ngFor="let anuncio of anuncios" class="d-flex justify-content-between align-items-center border p-3 mb-2">
+        <div *ngIf="anuncio.equipo; else sinEquipo">
+          <strong>{{ anuncio.equipo.nombre }}</strong> |
+          <span>{{ anuncio.equipo.categoria }}</span> |
+          <span>{{ anuncio.equipo.sexo }}</span>
+        </div>
+        <ng-template #sinEquipo>
+          <span class="text-danger">Sin datos de equipo</span>
+        </ng-template>
+        <button class="btn btn-outline-primary" (click)="verAnuncio(anuncio.id)">Ver anuncio</button>
+      </div>
+    </div>
+  </div>
+  

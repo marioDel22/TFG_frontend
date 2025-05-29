@@ -69,12 +69,18 @@
           <p><strong>Descripción:</strong> {{ equipo.anuncio.descripcion }}</p>
           <button
             class="btn btn-outline-secondary"
-            (click)="router.navigate(['/anuncio-equipo/editar', equipo.anuncio.id])"
+            (click)="verAnuncioEquipo()"
             *ngIf="equipo.anuncio"
           >
-            Editar anuncio
+            Ver anuncio
           </button>
         </div>
+      </div>
+
+      <div class="d-flex justify-content-center mt-4">
+        <button class="btn btn-outline-primary" (click)="irABuscarJugadores()">
+          Buscar jugadores
+        </button>
       </div>
     </div>
 

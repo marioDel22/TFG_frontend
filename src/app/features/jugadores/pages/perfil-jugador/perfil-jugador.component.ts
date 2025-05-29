@@ -62,4 +62,8 @@ export class PerfilJugadorComponent implements OnInit {
       this.router.navigate(['/anuncio-jugador', this.anuncio.id]);
     }
   }
+
+  verAnunciosEquipos() {
+    this.router.navigate(['/anuncios-equipos']);
+  }
 }

@@ -1,0 +1,31 @@
+<div class="container mt-4" *ngIf="anuncio; else cargando">
+    <h2 class="mb-3">Anuncio del equipo {{ anuncio.equipo.nombre }}</h2>
+  
+    <div class="mb-3"><strong>Día de partido:</strong> {{ anuncio.dia_partido }}</div>
+    <div class="mb-3"><strong>Horario de partido:</strong> {{ anuncio.horario_partido }}</div>
+    <div class="mb-3"><strong>Dirección del partido:</strong> {{ anuncio.direccion_partido }}</div>
+  
+    <div class="mb-3" *ngIf="anuncio.dia_entrenamiento">
+      <strong>Día de entrenamiento:</strong> {{ anuncio.dia_entrenamiento }}
+    </div>
+    <div class="mb-3" *ngIf="anuncio.horario_entrenamiento">
+      <strong>Horario de entrenamiento:</strong> {{ anuncio.horario_entrenamiento }}
+    </div>
+    <div class="mb-3" *ngIf="anuncio.direccion_entrenamiento">
+      <strong>Dirección de entrenamiento:</strong> {{ anuncio.direccion_entrenamiento }}
+    </div>
+  
+    <div class="mb-3"><strong>Descripción:</strong> {{ anuncio.descripcion }}</div>
+    <div class="mb-4"><strong>Creado el:</strong> {{ anuncio.creado | date:'medium' }}</div>
+  
+    <div class="d-flex gap-2">
+      <button class="btn btn-outline-primary" (click)="editarAnuncio()">Editar</button>
+      <button class="btn btn-outline-danger" (click)="eliminarAnuncio()">Eliminar</button>
+      <button class="btn btn-success" (click)="abrirChat()">Ir al chat</button>
+    </div>
+  </div>
+  
+  <ng-template #cargando>
+    <p>Cargando anuncio...</p>
+  </ng-template>
+  

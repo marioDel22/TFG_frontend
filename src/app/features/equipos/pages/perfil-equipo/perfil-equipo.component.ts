@@ -29,4 +29,12 @@ export class PerfilEquipoComponent implements OnInit {
   editarEquipo() {
     this.router.navigate(['/equipo', this.equipo.id, 'editar']);
   }
+
+  verAnuncioEquipo() {
+    this.router.navigate(['/anuncio-equipo', this.equipo.anuncio.id]);
+  }
+
+  irABuscarJugadores() {
+    this.router.navigate(['/buscar-jugadores']);
+  }
 }

@@ -1,0 +1,57 @@
+<div class="container">
+    <h2 class="text-center mb-4">Buscar jugadores</h2>
+  
+    <form (ngSubmit)="aplicarFiltros()" class="mb-4 row g-3">
+      <div class="col-md-3">
+        <label class="form-label">Posición</label>
+        <select class="form-select" [(ngModel)]="filtro.posicion" name="posicion">
+          <option value="">Todas</option>
+          <option *ngFor="let p of posiciones" [value]="p">{{ p }}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Nivel</label>
+        <select class="form-select" [(ngModel)]="filtro.nivel" name="nivel">
+          <option value="">Todos</option>
+          <option *ngFor="let n of niveles" [value]="n">{{ n }}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Día disponible</label>
+        <select class="form-select" [(ngModel)]="filtro.dia" name="dia">
+          <option value="">Todos</option>
+          <option *ngFor="let d of dias" [value]="d">{{ d }}</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Horario</label>
+        <select class="form-select" [(ngModel)]="filtro.horario" name="horario">
+          <option value="">Todos</option>
+          <option *ngFor="let h of horarios" [value]="h">{{ h }}</option>
+        </select>
+      </div>
+      <div class="col-12 text-end">
+        <button type="submit" class="btn btn-primary">Buscar</button>
+      </div>
+    </form>
+  
+    <div *ngIf="filtrados.length === 0" class="text-center">
+      <p>No hay anuncios disponibles.</p>
+    </div>
+  
+    <div *ngIf="filtrados.length > 0">
+      <div *ngFor="let anuncio of filtrados" class="card mb-2">
+        <div class="card-body d-flex justify-content-between align-items-center">
+          <div class="d-flex flex-wrap align-items-center">
+            <span class="fw-bold me-3">{{ anuncio.jugador.nombre }}</span>
+            <span class="me-3">{{ anuncio.jugador.edad }} años</span>
+            <span class="me-3">{{ anuncio.jugador.posicion }}</span>
+            <span class="me-3">{{ anuncio.jugador.altura }} m</span>
+            <span class="me-3">{{ anuncio.jugador.nivel }}</span>
+          </div>
+          <button class="btn btn-sm btn-outline-primary" (click)="verAnuncio(anuncio.id)">Ver anuncio</button>
+        </div>
+      </div>
+    </div>
+    
+  

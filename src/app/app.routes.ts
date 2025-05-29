@@ -11,6 +11,12 @@ import { EditarJugadorComponent } from './features/jugadores/pages/editar-jugado
 import { CrearAnuncioEquipoComponent } from './features/anuncios/pages/crear-anuncio-equipo/crear-anuncio-equipo.component';
 import { EditarAnuncioEquipoComponent } from './features/anuncios/pages/editar-anuncio-equipo/editar-anuncio-equipo.component';
 import { CrearAnuncioJugadorComponent } from './features/anuncios/pages/crear-anuncio-jugador/crear-anuncio-jugador.component';
+import { ListadoAnunciosJugadorComponent } from './features/anuncios/pages/listado-anuncios-jugador/listado-anuncios-jugador.component';
+import { VerAnuncioEquipoComponent } from './features/anuncios/pages/ver-anuncio-equipo/ver-anuncio-equipo.component';
+import { ListadoAnunciosEquipoComponent } from './features/anuncios/pages/listado-anuncios-equipo/listado-anuncios-equipo.component';
+
+
+
 
 
 
@@ -33,8 +39,13 @@ export const routes: Routes = [
     { path: 'jugador/:id/editar', component: EditarJugadorComponent },
     { path: 'anuncio-equipo/nuevo/:equipoId', component: CrearAnuncioEquipoComponent },
     { path: 'anuncio-equipo/editar/:id', component: EditarAnuncioEquipoComponent },
+    { path: 'anuncio-equipo/:id', component: VerAnuncioEquipoComponent },
     { path: 'anuncio-jugador/nuevo', component: CrearAnuncioJugadorComponent },
-    { path: 'anuncio-jugador/:id', loadComponent: () => import('./features/jugadores/pages/ver-anuncio-jugador.component').then(m => m.VerAnuncioJugadorComponent) },
+    { path: 'anuncio-jugador/:id', loadComponent: () => import('./features/jugadores/pages/ver-anuncio-jugador/ver-anuncio-jugador.component').then(m => m.VerAnuncioJugadorComponent) },
+    { path: 'anuncios-jugadores',  loadComponent: () => import('./features/anuncios/pages/ver-anuncios-jugadores/ver-anuncios-jugadores.component').then(m => m.VerAnunciosJugadoresComponent)    },
+    { path: 'anuncios-jugador', loadComponent: () => import('./features/anuncios/pages/listado-anuncios-jugador/listado-anuncios-jugador.component').then(m => m.ListadoAnunciosJugadorComponent)    },
+    { path: 'anuncios-equipos', component: ListadoAnunciosEquipoComponent },
+    { path: 'buscar-jugadores', component: ListadoAnunciosJugadorComponent },
     { path: '**', redirectTo: 'login' }
     
   ];

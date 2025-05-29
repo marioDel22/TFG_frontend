@@ -1,0 +1,47 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-ver-anuncio-equipo',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './ver-anuncio-equipo.component.html'
+})
+export class VerAnuncioEquipoComponent implements OnInit {
+  anuncio: any = null;
+  anuncioId!: string;
+
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.anuncioId = this.route.snapshot.paramMap.get('id')!;
+    this.http.get(`http://localhost:8000/api/anuncios-equipo/${this.anuncioId}/`).subscribe({
+      next: (res) => this.anuncio = res,
+      error: (err) => console.error('Error al cargar anuncio de equipo:', err)
+    });
+  }
+
+  editarAnuncio() {
+    this.router.navigate(['/anuncio-equipo/editar', this.anuncioId]);
+  }
+
+  eliminarAnuncio() {
+    if (confirm('¿Estás seguro de que quieres eliminar el anuncio?')) {
+      this.http.delete(`http://localhost:8000/api/anuncios-equipo/${this.anuncioId}/`).subscribe({
+        next: () => this.router.navigate(['/inicio']),
+        error: (err) => console.error('Error al eliminar anuncio de equipo', err)
+      });
+    }
+  }
+
+  abrirChat() {
+    // Por ahora solo placeholder
+    alert('Aquí iría el chat con un jugador interesado.');
+  }
+}

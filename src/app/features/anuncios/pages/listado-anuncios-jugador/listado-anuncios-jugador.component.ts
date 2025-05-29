@@ -1,0 +1,53 @@
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-listado-anuncios-jugador',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: './listado-anuncios-jugador.component.html'
+})
+export class ListadoAnunciosJugadorComponent implements OnInit {
+  anuncios: any[] = [];
+  filtrados: any[] = [];
+
+  filtro = {
+    posicion: '',
+    nivel: '',
+    dia: '',
+    horario: ''
+  };
+
+  posiciones = ['base', 'escolta', 'alero', 'ala_pivot', 'pivot'];
+  niveles = ['relajado', 'intermedio', 'alto'];
+  dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo', 'indiferente'];
+  horarios = ['manana', 'tarde', 'todo_dia', 'indiferente'];
+
+  constructor(private http: HttpClient, private router: Router) {}
+
+  ngOnInit(): void {
+    this.http.get<any[]>('http://localhost:8000/api/anuncios-jugador/').subscribe({
+      next: (res) => {
+        this.anuncios = res.sort((a, b) => a.jugador.nombre.localeCompare(b.jugador.nombre));
+        this.filtrados = [...this.anuncios];
+      },
+      error: (err) => console.error('Error al obtener anuncios', err)
+    });
+  }
+
+  aplicarFiltros() {
+    this.filtrados = this.anuncios.filter(anuncio =>
+      (!this.filtro.posicion || anuncio.jugador.posicion === this.filtro.posicion) &&
+      (!this.filtro.nivel || anuncio.jugador.nivel === this.filtro.nivel) &&
+      (!this.filtro.dia || anuncio.disponibilidad_dia === this.filtro.dia) &&
+      (!this.filtro.horario || anuncio.disponibilidad_horaria === this.filtro.horario)
+    );
+  }
+
+  verAnuncio(id: number) {
+    this.router.navigate(['/anuncios-jugador', id]);
+  }
+}
