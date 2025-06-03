@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -16,12 +16,17 @@ export class InicioComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
-    this.http.get<any[]>('http://localhost:8000/api/jugadores/').subscribe({
-      next: (res) => this.jugador = res[0] || null
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Token ${token}`);
+
+    this.http.get<any[]>('http://localhost:8000/api/jugadores/', { headers }).subscribe({
+      next: (res) => this.jugador = res[0] || null,
+      error: (err) => console.error('Error al obtener jugador:', err)
     });
 
-    this.http.get<any[]>('http://localhost:8000/api/equipos/').subscribe({
-      next: (res) => this.equipos = res
+    this.http.get<any[]>('http://localhost:8000/api/mis-equipos-creados/', { headers }).subscribe({
+      next: (res) => this.equipos = res,
+      error: (err) => console.error('Error al obtener equipos:', err)
     });
   }
 
