@@ -16,8 +16,8 @@ export class InicioComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit() {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Token ${token}`);
+    const token = localStorage.getItem('access');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
     this.http.get<any[]>('http://localhost:8000/api/jugadores/', { headers }).subscribe({
       next: (res) => this.jugador = res[0] || null,

@@ -1,0 +1,24 @@
+<div class="container mt-4">
+  <h2>Editar anuncio de jugador</h2>
+  <div *ngIf="cargando">Cargando...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <form *ngIf="!cargando" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label>Día disponible:</label>
+      <input class="form-control" [(ngModel)]="form.disponibilidad_dia" name="disponibilidad_dia" required />
+    </div>
+    <div class="mb-3">
+      <label>Horario disponible:</label>
+      <input class="form-control" [(ngModel)]="form.disponibilidad_horaria" name="disponibilidad_horaria" required />
+    </div>
+    <div class="mb-3">
+      <label>Sexo:</label>
+      <input class="form-control" [(ngModel)]="form.sexo" name="sexo" required />
+    </div>
+    <div class="mb-3">
+      <label>Descripción:</label>
+      <textarea class="form-control" [(ngModel)]="form.descripcion" name="descripcion" required></textarea>
+    </div>
+    <button class="btn btn-primary" type="submit">Guardar cambios</button>
+  </form>
+</div> 

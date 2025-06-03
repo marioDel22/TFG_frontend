@@ -17,41 +17,32 @@ import { ListadoAnunciosEquipoComponent } from './features/anuncios/pages/listad
 import { VerAnuncioJugadorPublicoComponent } from './features/anuncios/pages/ver-anuncio-jugador-publico/ver-anuncio-jugador-publico.component';
 import { VerAnuncioEquipoPublicoComponent } from './features/anuncios/pages/ver-anuncio-equipo-publico/ver-anuncio-equipo-publico.component';
 import { ChatComponent } from './features/chat/pages/chat.component';
-
-
-
-
-
-
-
-
-
-
-
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
-    { path: 'inicio', component: InicioComponent },
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'jugador/nuevo', component: CrearJugadorComponent },
-    { path: 'equipo/nuevo', component: CrearEquipoComponent },  
-    { path: 'equipo/:id', component: PerfilEquipoComponent },
-    { path: 'equipo/:id/editar', component: EditarEquipoComponent },
     { path: 'registro', component: RegistroComponent },
-    { path: 'jugador/:id', component: PerfilJugadorComponent },
-    { path: 'jugador/:id/editar', component: EditarJugadorComponent },
-    { path: 'anuncio-equipo/nuevo/:equipoId', component: CrearAnuncioEquipoComponent },
-    { path: 'anuncio-equipo/editar/:id', component: EditarAnuncioEquipoComponent },
-    { path: 'anuncio-equipo/:id', component: VerAnuncioEquipoComponent },
-    { path: 'anuncio-jugador/nuevo', component: CrearAnuncioJugadorComponent },
-    { path: 'anuncio-jugador/:id', loadComponent: () => import('./features/jugadores/pages/ver-anuncio-jugador/ver-anuncio-jugador.component').then(m => m.VerAnuncioJugadorComponent) },
-    { path: 'anuncios-jugadores',  loadComponent: () => import('./features/anuncios/pages/ver-anuncios-jugadores/ver-anuncios-jugadores.component').then(m => m.VerAnunciosJugadoresComponent)    },
-    { path: 'anuncios-jugador', loadComponent: () => import('./features/anuncios/pages/listado-anuncios-jugador/listado-anuncios-jugador.component').then(m => m.ListadoAnunciosJugadorComponent)    },
-    { path: 'anuncios-equipos', component: ListadoAnunciosEquipoComponent },
+    { path: 'inicio', component: InicioComponent, canActivate: [AuthGuard] },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'jugador/nuevo', component: CrearJugadorComponent, canActivate: [AuthGuard] },
+    { path: 'equipo/nuevo', component: CrearEquipoComponent, canActivate: [AuthGuard] },  
+    { path: 'equipo/:id', component: PerfilEquipoComponent, canActivate: [AuthGuard] },
+    { path: 'equipo/:id/editar', component: EditarEquipoComponent, canActivate: [AuthGuard] },
+    { path: 'jugador/:id', component: PerfilJugadorComponent, canActivate: [AuthGuard] },
+    { path: 'jugador/:id/editar', component: EditarJugadorComponent, canActivate: [AuthGuard] },
+    { path: 'anuncio-equipo/nuevo/:equipoId', component: CrearAnuncioEquipoComponent, canActivate: [AuthGuard] },
+    { path: 'anuncio-equipo/editar/:id', component: EditarAnuncioEquipoComponent, canActivate: [AuthGuard] },
+    { path: 'anuncio-equipo/:id', component: VerAnuncioEquipoComponent, canActivate: [AuthGuard] },
+    { path: 'anuncio-jugador/nuevo', component: CrearAnuncioJugadorComponent, canActivate: [AuthGuard] },
+    { path: 'anuncio-jugador/:id', loadComponent: () => import('./features/jugadores/pages/ver-anuncio-jugador/ver-anuncio-jugador.component').then(m => m.VerAnuncioJugadorComponent), canActivate: [AuthGuard] },
+    { path: 'anuncio-jugador/:id/editar', loadComponent: () => import('./features/anuncios/pages/editar-anuncio-jugador/editar-anuncio-jugador.component').then(m => m.EditarAnuncioJugadorComponent), canActivate: [AuthGuard] },
+    { path: 'anuncios-jugadores',  loadComponent: () => import('./features/anuncios/pages/ver-anuncios-jugadores/ver-anuncios-jugadores.component').then(m => m.VerAnunciosJugadoresComponent), canActivate: [AuthGuard] },
+    { path: 'anuncios-jugador', loadComponent: () => import('./features/anuncios/pages/listado-anuncios-jugador/listado-anuncios-jugador.component').then(m => m.ListadoAnunciosJugadorComponent), canActivate: [AuthGuard] },
+    { path: 'anuncios-equipos', component: ListadoAnunciosEquipoComponent, canActivate: [AuthGuard] },
     { path: 'ver-anuncio-jugador-publico/:id', component: VerAnuncioJugadorPublicoComponent },
-    { path: 'buscar-jugadores', component: ListadoAnunciosJugadorComponent },
+    { path: 'buscar-jugadores', component: ListadoAnunciosJugadorComponent, canActivate: [AuthGuard] },
     { path: 'ver-anuncio-equipo-publico/:id', component: VerAnuncioEquipoPublicoComponent },
-    { path: 'chat/:id', component: ChatComponent },
+    { path: 'chat/:id', component: ChatComponent, canActivate: [AuthGuard] },
+    { path: 'mis-chats', loadComponent: () => import('./features/chat/pages/mis-chats.component').then(m => m.MisChatsComponent), canActivate: [AuthGuard] },
     { path: '**', redirectTo: 'login' }
-    
   ];

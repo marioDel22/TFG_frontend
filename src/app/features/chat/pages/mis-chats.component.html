@@ -1,0 +1,22 @@
+<div class="container mt-4">
+  <h3>Mis chats</h3>
+  <div *ngIf="cargando">
+    <p>Cargando chats...</p>
+  </div>
+  <div *ngIf="!cargando && chats.length === 0">
+    <p class="text-muted">No tienes chats todavía.</p>
+  </div>
+  <ul class="list-group" *ngIf="!cargando && chats.length > 0">
+    <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let chat of chats">
+      <div>
+        <strong>Equipo:</strong> {{ chat.equipo_nombre }}<br />
+        <strong>Jugador:</strong> {{ chat.jugador_nombre }}<br />
+        <span *ngIf="chat.ultimo_mensaje">
+          <strong>Último mensaje:</strong> {{ chat.ultimo_mensaje.contenido }}<br />
+          <small class="text-muted">{{ chat.ultimo_mensaje.timestamp | date:'short' }}</small>
+        </span>
+      </div>
+      <button class="btn btn-primary" (click)="irAlChat(chat.id)">Ver chat</button>
+    </li>
+  </ul>
+</div> 

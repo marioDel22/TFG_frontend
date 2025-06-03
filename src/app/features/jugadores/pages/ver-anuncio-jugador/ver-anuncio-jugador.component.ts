@@ -40,5 +40,7 @@ export class VerAnuncioJugadorComponent implements OnInit {
     }
   }
 
-  abrirChat() {}
+  abrirChat() {
+    this.router.navigate(['/mis-chats']);
+  }
 }
