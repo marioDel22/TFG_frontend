@@ -35,6 +35,10 @@ export class PerfilEquipoComponent implements OnInit {
   }
 
   irABuscarJugadores() {
-    this.router.navigate(['/buscar-jugadores']);
+    if (!this.equipo || !this.equipo.id) {
+      alert('No se ha cargado el equipo');
+      return;
+    }
+    this.router.navigate(['/anuncios-jugador'], { queryParams: { equipoId: this.equipo.id } });
   }
 }

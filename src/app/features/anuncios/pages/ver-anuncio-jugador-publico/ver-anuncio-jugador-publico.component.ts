@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class VerAnuncioJugadorPublicoComponent implements OnInit {
   anuncio: any;
   id!: number;
+  equipoSeleccionadoId: number | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -24,6 +25,9 @@ export class VerAnuncioJugadorPublicoComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.route.queryParams.subscribe(params => {
+      this.equipoSeleccionadoId = params['equipoId'] ? +params['equipoId'] : null;
+    });
     this.http.get<any>(`http://localhost:8000/api/anuncios-jugador/${this.id}/`).subscribe({
       next: (data: any) => {
         this.anuncio = data;
@@ -35,48 +39,19 @@ export class VerAnuncioJugadorPublicoComponent implements OnInit {
   }
 
   mandarMensaje() {
-    // Primero, intenta obtener el equipo del usuario autenticado
-    this.http.get<any[]>('http://localhost:8000/api/equipos/').subscribe({
-      next: (equipos: any[]) => {
-        let equipoId = null;
-        if (equipos.length > 0) {
-          equipoId = equipos[0].id; // Si el usuario es un equipo, coge el primer equipo
-        }
-        const jugadorId = this.anuncio.jugador.id;
-
-        this.chatService.iniciarChatConJugador(jugadorId, equipoId).subscribe({
-          next: (res: any) => {
-            // Redirige al chat
-            const chatId = res.chat_id;
-            this.router.navigate(['/chat', chatId]);
-          },
-          error: (err: any) => {
-            console.error('Error al iniciar chat', err);
-          }
-        });
+    if (!this.equipoSeleccionadoId) {
+      alert('Selecciona un equipo primero');
+      return;
+    }
+    const jugadorId = this.anuncio.jugador.id;
+    this.chatService.iniciarChatConJugador(jugadorId, this.equipoSeleccionadoId).subscribe({
+      next: (res: any) => {
+        // Redirige al chat
+        const chatId = res.chat_id;
+        this.router.navigate(['/chat', chatId]);
       },
       error: (err: any) => {
-        // Si no es equipo, intenta como jugador
-        this.http.get<any[]>('http://localhost:8000/api/jugadores/').subscribe({
-          next: (jugadores: any[]) => {
-            let jugadorId = null;
-            if (jugadores.length > 0) {
-              jugadorId = jugadores[0].id;
-            }
-            const equipoId = this.anuncio.equipo?.id || null;
-
-            this.chatService.iniciarChatConJugador(jugadorId, equipoId).subscribe({
-              next: (res: any) => {
-                // Redirige al chat
-                const chatId = res.chat_id;
-                this.router.navigate(['/chat', chatId]);
-              },
-              error: (err: any) => {
-                console.error('Error al iniciar chat', err);
-              }
-            });
-          }
-        });
+        console.error('Error al iniciar chat', err);
       }
     });
   }

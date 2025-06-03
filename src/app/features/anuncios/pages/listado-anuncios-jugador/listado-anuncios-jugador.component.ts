@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChatService } from '../../../../core/services/chat.service';
@@ -27,13 +27,19 @@ export class ListadoAnunciosJugadorComponent implements OnInit {
   dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo', 'indiferente'];
   horarios = ['manana', 'tarde', 'todo_dia', 'indiferente'];
 
+  equipoSeleccionadoId: number | null = null;
+
   constructor(
     private http: HttpClient,
     private router: Router,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.equipoSeleccionadoId = params['equipoId'] ? +params['equipoId'] : null;
+    });
     this.http.get<any[]>('http://localhost:8000/api/anuncios-jugador/').subscribe({
       next: (res: any[]) => {
         this.anuncios = res.sort((a, b) => a.jugador.nombre.localeCompare(b.jugador.nombre));
@@ -53,11 +59,15 @@ export class ListadoAnunciosJugadorComponent implements OnInit {
   }
 
   verAnuncio(id: number) {
-    this.router.navigate(['/ver-anuncio-jugador-publico', id]);
+    this.router.navigate(['/ver-anuncio-jugador-publico', id], { queryParams: { equipoId: this.equipoSeleccionadoId } });
   }
 
   mandarMensaje(jugadorId: number) {
-    this.chatService.iniciarChatConJugador(jugadorId, null).subscribe({
+    if (!this.equipoSeleccionadoId) {
+      alert('Selecciona un equipo primero');
+      return;
+    }
+    this.chatService.iniciarChatConJugador(jugadorId, this.equipoSeleccionadoId).subscribe({
       next: (res: any) => {
         const chatId = res.chat_id;
         this.router.navigate(['/chat', chatId]);
