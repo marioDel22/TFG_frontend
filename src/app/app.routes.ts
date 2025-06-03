@@ -16,6 +16,7 @@ import { VerAnuncioEquipoComponent } from './features/anuncios/pages/ver-anuncio
 import { ListadoAnunciosEquipoComponent } from './features/anuncios/pages/listado-anuncios-equipo/listado-anuncios-equipo.component';
 import { VerAnuncioJugadorPublicoComponent } from './features/anuncios/pages/ver-anuncio-jugador-publico/ver-anuncio-jugador-publico.component';
 import { VerAnuncioEquipoPublicoComponent } from './features/anuncios/pages/ver-anuncio-equipo-publico/ver-anuncio-equipo-publico.component';
+import { ChatComponent } from './features/chat/pages/chat.component';
 
 
 
@@ -33,7 +34,7 @@ export const routes: Routes = [
     { path: 'inicio', component: InicioComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'jugador/nuevo', component: CrearJugadorComponent },
-    { path: 'equipo/nuevo', component: CrearEquipoComponent },
+    { path: 'equipo/nuevo', component: CrearEquipoComponent },  
     { path: 'equipo/:id', component: PerfilEquipoComponent },
     { path: 'equipo/:id/editar', component: EditarEquipoComponent },
     { path: 'registro', component: RegistroComponent },
@@ -50,6 +51,7 @@ export const routes: Routes = [
     { path: 'ver-anuncio-jugador-publico/:id', component: VerAnuncioJugadorPublicoComponent },
     { path: 'buscar-jugadores', component: ListadoAnunciosJugadorComponent },
     { path: 'ver-anuncio-equipo-publico/:id', component: VerAnuncioEquipoPublicoComponent },
+    { path: 'chat/:id', component: ChatComponent },
     { path: '**', redirectTo: 'login' }
     
   ];

@@ -49,7 +49,9 @@
             <span class="me-3">{{ anuncio.jugador.altura }} m</span>
             <span class="me-3">{{ anuncio.jugador.nivel }}</span>
           </div>
-          <button class="btn btn-sm btn-outline-primary" (click)="verAnuncio(anuncio.id)">Ver anuncio</button>
+          <div>
+            <button class="btn btn-sm btn-outline-primary me-2" (click)="verAnuncio(anuncio.id)">Ver anuncio</button>
+          </div>
         </div>
       </div>
     </div>

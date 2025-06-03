@@ -1,0 +1,22 @@
+<div class="container mt-4">
+    <h3>Conversación</h3>
+  
+    <div *ngIf="mensajes.length === 0">
+      <p class="text-muted">No hay mensajes todavía.</p>
+    </div>
+  
+    <div class="mb-3" *ngFor="let mensaje of mensajes">
+      <strong>{{ mensaje.emisor_username }}:</strong>
+      <span>{{ mensaje.contenido }}</span>
+      <div class="text-muted small">{{ mensaje.timestamp | date:'short' }}</div>
+      <hr />
+    </div>
+  
+    <form (ngSubmit)="enviarMensaje()">
+      <div class="mb-3">
+        <textarea [(ngModel)]="nuevoMensaje" name="mensaje" class="form-control" rows="3" placeholder="Escribe tu mensaje..."></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit">Enviar</button>
+    </form>
+  </div>
+  
