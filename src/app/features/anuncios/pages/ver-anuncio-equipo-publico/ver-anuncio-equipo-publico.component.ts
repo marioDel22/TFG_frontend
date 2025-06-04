@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { ChatService } from '../../../../core/services/chat.service';
 
 @Component({
   selector: 'app-ver-anuncio-equipo-publico',
@@ -15,7 +16,9 @@ export class VerAnuncioEquipoPublicoComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router,
+    private chatService: ChatService
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +40,33 @@ export class VerAnuncioEquipoPublicoComponent implements OnInit {
   }
 
   mandarMensaje() {
-    console.log('Mandar mensaje al equipo con ID:', this.anuncio.equipo?.id);
-    // Aquí irá la lógica real para abrir el chat con el equipo
+    const equipoId = this.anuncio.equipo?.id;
+    if (!equipoId) {
+      console.error('No se encontró el ID del equipo');
+      return;
+    }
+    const token = localStorage.getItem('access');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    this.http.get<any[]>('http://localhost:8000/api/jugadores/', { headers }).subscribe({
+      next: (res) => {
+        const jugador = res[0] || null;
+        const jugadorId = jugador ? jugador.id : null;
+        if (!jugadorId) {
+          console.error('No se encontró el ID del jugador');
+          return;
+        }
+        this.chatService.iniciarChatConEquipo(jugadorId, equipoId).subscribe({
+          next: (res: any) => {
+            this.router.navigate(['/chat', res.chat_id]);
+          },
+          error: (err: any) => {
+            console.error('Error al iniciar chat con el equipo', err);
+          }
+        });
+      },
+      error: (err) => {
+        console.error('Error al obtener jugador:', err);
+      }
+    });
   }
 }

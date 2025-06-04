@@ -21,7 +21,7 @@
     <div class="d-flex gap-2">
       <button class="btn btn-outline-primary" (click)="editarAnuncio()">Editar</button>
       <button class="btn btn-outline-danger" (click)="eliminarAnuncio()">Eliminar</button>
-      <button class="btn btn-success" (click)="abrirChat()">Ir al chat</button>
+      <button class="btn btn-success" [routerLink]="['/anuncio-equipo', anuncio.id, 'chats']">Ir al chat</button>
     </div>
   </div>
   

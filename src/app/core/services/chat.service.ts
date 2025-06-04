@@ -15,6 +15,13 @@ export class ChatService {
     );
   }
 
+  iniciarChatConEquipo(jugadorId: number, equipoId: number) {
+    return this.http.post<{ chat_id: number; creado: boolean }>(
+      `${this.apiUrl}/iniciar-chat/`,
+      { jugador_id: jugadorId, equipo_id: equipoId }
+    );
+  }
+
   getMensajes(chatId: number) {
     return this.http.get<any[]>(`${this.apiUrl}/mensajes/?chat=${chatId}`);
   }
@@ -25,5 +32,9 @@ export class ChatService {
 
   getMisChats() {
     return this.http.get<any[]>(`${this.apiUrl}/chats/`);
+  }
+
+  getChatsPorAnuncioEquipo(anuncioEquipoId: number) {
+    return this.http.get<any[]>(`${this.apiUrl}/chats/?anuncio_equipo=${anuncioEquipoId}`);
   }
 } 

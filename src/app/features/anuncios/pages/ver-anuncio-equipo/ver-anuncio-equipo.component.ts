@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { ChatService } from '../../../../core/services/chat.service';
 
 @Component({
   selector: 'app-ver-anuncio-equipo',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './ver-anuncio-equipo.component.html'
 })
 export class VerAnuncioEquipoComponent implements OnInit {
@@ -16,7 +18,8 @@ export class VerAnuncioEquipoComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private chatService: ChatService
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +44,33 @@ export class VerAnuncioEquipoComponent implements OnInit {
   }
 
   abrirChat() {
-    // Por ahora solo placeholder
-    alert('Aquí iría el chat con un jugador interesado.');
+    const equipoId = this.anuncio.equipo?.id || this.anuncio.equipo;
+    if (!equipoId) {
+      console.error('No se encontró el ID del equipo');
+      return;
+    }
+    const token = localStorage.getItem('access');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    this.http.get<any[]>('http://localhost:8000/api/jugadores/', { headers }).subscribe({
+      next: (res) => {
+        const jugador = res[0] || null;
+        const jugadorId = jugador ? jugador.id : null;
+        if (!jugadorId) {
+          console.error('No se encontró el ID del jugador');
+          return;
+        }
+        this.chatService.iniciarChatConEquipo(jugadorId, equipoId).subscribe({
+          next: (res: any) => {
+            this.router.navigate(['/chat', res.chat_id]);
+          },
+          error: (err: any) => {
+            console.error('Error al iniciar chat con el equipo', err);
+          }
+        });
+      },
+      error: (err) => {
+        console.error('Error al obtener jugador:', err);
+      }
+    });
   }
 }

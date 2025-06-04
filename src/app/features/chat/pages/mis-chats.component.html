@@ -7,7 +7,7 @@
     <p class="text-muted">No tienes chats todavía.</p>
   </div>
   <ul class="list-group" *ngIf="!cargando && chats.length > 0">
-    <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let chat of chats">
+    <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let chat of misChats">
       <div>
         <strong>Equipo:</strong> {{ chat.equipo_nombre }}<br />
         <strong>Jugador:</strong> {{ chat.jugador_nombre }}<br />

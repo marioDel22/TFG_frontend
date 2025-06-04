@@ -33,6 +33,7 @@ export const routes: Routes = [
     { path: 'anuncio-equipo/nuevo/:equipoId', component: CrearAnuncioEquipoComponent, canActivate: [AuthGuard] },
     { path: 'anuncio-equipo/editar/:id', component: EditarAnuncioEquipoComponent, canActivate: [AuthGuard] },
     { path: 'anuncio-equipo/:id', component: VerAnuncioEquipoComponent, canActivate: [AuthGuard] },
+    { path: 'anuncio-equipo/:id/chats', loadComponent: () => import('./features/chat/pages/chats-anuncio-equipo.component').then(m => m.ChatsAnuncioEquipoComponent), canActivate: [AuthGuard] },
     { path: 'anuncio-jugador/nuevo', component: CrearAnuncioJugadorComponent, canActivate: [AuthGuard] },
     { path: 'anuncio-jugador/:id', loadComponent: () => import('./features/jugadores/pages/ver-anuncio-jugador/ver-anuncio-jugador.component').then(m => m.VerAnuncioJugadorComponent), canActivate: [AuthGuard] },
     { path: 'anuncio-jugador/:id/editar', loadComponent: () => import('./features/anuncios/pages/editar-anuncio-jugador/editar-anuncio-jugador.component').then(m => m.EditarAnuncioJugadorComponent), canActivate: [AuthGuard] },
