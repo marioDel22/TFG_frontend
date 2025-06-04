@@ -1,0 +1,21 @@
+<div class="container py-4">
+  <h2>Invitaciones recibidas</h2>
+  <div *ngIf="cargando">
+    <p>Cargando invitaciones...</p>
+  </div>
+  <div *ngIf="!cargando && invitaciones.length === 0">
+    <p class="text-muted">No tienes invitaciones pendientes.</p>
+  </div>
+  <ul class="list-group" *ngIf="!cargando && invitaciones.length > 0">
+    <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let inv of invitaciones">
+      <div>
+        <strong>Equipo:</strong> {{ inv.equipo_nombre || inv.equipo }}<br />
+        <strong>Estado:</strong> {{ inv.estado }}
+      </div>
+      <div>
+        <button class="btn btn-success btn-sm me-2" (click)="aceptarInvitacion(inv.id)">Aceptar</button>
+        <button class="btn btn-danger btn-sm" (click)="rechazarInvitacion(inv.id)">Rechazar</button>
+      </div>
+    </li>
+  </ul>
+</div> 

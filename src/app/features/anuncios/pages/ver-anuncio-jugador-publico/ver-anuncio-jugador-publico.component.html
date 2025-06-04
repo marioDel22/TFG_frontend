@@ -11,9 +11,16 @@
       <p><strong>Sexo:</strong> {{ anuncio.sexo }}</p>
       <p><strong>Creado el:</strong> {{ anuncio.creado | date:'medium' }}</p>
     </div>
+    <div class="mb-3">
+      <label for="equipoSelect" class="form-label">Selecciona tu equipo</label>
+      <select id="equipoSelect" class="form-select w-auto d-inline-block" [(ngModel)]="equipoSeleccionadoId" (change)="onEquipoSeleccionadoChange()" name="equipoSeleccionadoId">
+        <option *ngFor="let eq of equiposUsuario" [value]="eq.id">{{ eq.nombre }}</option>
+      </select>
+    </div>
     <div class="d-flex gap-2">
       <button class="btn btn-primary" (click)="mandarMensaje()">Mandar mensaje</button>
-      <button class="btn btn-success" (click)="enviarInvitacion()">Invitar al equipo</button>
+      <button class="btn btn-success" (click)="enviarInvitacion()" [disabled]="invitacionPendiente">Invitar al equipo</button>
+      <span *ngIf="invitacionPendiente" class="ms-2 text-warning">Ya has enviado una invitación pendiente o aceptada para este equipo.</span>
     </div>
   </div>
   <ng-template #cargando>
