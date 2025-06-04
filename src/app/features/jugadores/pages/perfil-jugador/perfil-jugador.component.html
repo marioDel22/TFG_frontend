@@ -1,39 +1,51 @@
 <h2>Perfil del jugador</h2>
 
 <div *ngIf="jugador; else cargando">
-  <p><strong>Nombre:</strong> {{ jugador.nombre }}</p>
-  <p><strong>Edad:</strong> {{ jugador.edad }}</p>
-  <p><strong>Altura:</strong> {{ jugador.altura }} m</p>
-  <p><strong>Posición:</strong> {{ jugador.posicion }}</p>
-  <p><strong>Nivel:</strong> {{ jugador.nivel }}</p>
-  <p><strong>Correo:</strong> {{ jugador.correo }}</p>
-  <p><strong>Dirección:</strong> {{ jugador.direccion }}</p>
-  <p><strong>Sexo:</strong> {{ jugador.sexo }}</p>
-  <p><strong>Descripción:</strong> {{ jugador.descripcion }}</p>
+  <div class="row mt-4">
+    <div class="col-md-8">
+      <p><strong>Nombre:</strong> {{ jugador.nombre }}</p>
+      <p><strong>Edad:</strong> {{ jugador.edad }}</p>
+      <p><strong>Altura:</strong> {{ jugador.altura }} m</p>
+      <p><strong>Posición:</strong> {{ jugador.posicion }}</p>
+      <p><strong>Nivel:</strong> {{ jugador.nivel }}</p>
+      <p><strong>Correo:</strong> {{ jugador.correo }}</p>
+      <p><strong>Dirección:</strong> {{ jugador.direccion }}</p>
+      <p><strong>Sexo:</strong> {{ jugador.sexo }}</p>
+      <p><strong>Descripción:</strong> {{ jugador.descripcion }}</p>
 
+      <button class="btn btn-primary mt-3" (click)="router.navigate(['/jugador', jugador.id, 'editar'])">
+        Editar perfil
+      </button>
 
-  <button class="btn btn-primary mt-3" (click)="router.navigate(['/jugador', jugador.id, 'editar'])">
-    Editar perfil
-  </button>
+      <div *ngIf="!anuncio">
+        <button class="btn btn-primary" (click)="publicarAnuncio()">Publicar anuncio</button>
+      </div>
+      <div *ngIf="anuncio">
+        <button class="btn btn-outline-primary" (click)="verAnuncio()">Ver anuncio</button>
+      </div>
 
-  <div *ngIf="!anuncio">
-    <button class="btn btn-primary" (click)="publicarAnuncio()">Publicar anuncio</button>
+      <button class="btn btn-primary ms-2" (click)="verAnunciosEquipos()">Anuncios de equipos</button>
+
+      <!-- Si existe anuncio -->
+      <div *ngIf="anuncio" class="mt-4">
+        <h3>Anuncio publicado</h3>
+        <p><strong>Día disponible:</strong> {{ anuncio.disponibilidad_dia }}</p>
+        <p><strong>Horario disponible:</strong> {{ anuncio.disponibilidad_horaria }}</p>
+        <p><strong>Sexo buscado:</strong> {{ anuncio.sexo }}</p>
+        <p><strong>Descripción:</strong> {{ anuncio.descripcion }}</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h4>Mis equipos</h4>
+      <ul class="list-group">
+        <li *ngFor="let eq of misEquipos" class="list-group-item d-flex justify-content-between align-items-center">
+          <span>{{ eq.nombre }}</span>
+          <button class="btn btn-outline-info btn-sm" (click)="entrarCalendarioEquipo(eq.id)">Entrar</button>
+        </li>
+        <li *ngIf="misEquipos.length === 0" class="list-group-item text-muted">No perteneces a ningún equipo.</li>
+      </ul>
+    </div>
   </div>
-  <div *ngIf="anuncio">
-    <button class="btn btn-outline-primary" (click)="verAnuncio()">Ver anuncio</button>
-  </div>
-
-  <button class="btn btn-primary ms-2" (click)="verAnunciosEquipos()">Anuncios de equipos</button>
-
-  <!-- Si existe anuncio -->
-  <div *ngIf="anuncio" class="mt-4">
-    <h3>Anuncio publicado</h3>
-    <p><strong>Día disponible:</strong> {{ anuncio.disponibilidad_dia }}</p>
-    <p><strong>Horario disponible:</strong> {{ anuncio.disponibilidad_horaria }}</p>
-    <p><strong>Sexo buscado:</strong> {{ anuncio.sexo }}</p>
-    <p><strong>Descripción:</strong> {{ anuncio.descripcion }}</p>
-  </div>
-
 </div>
 
 <ng-template #cargando>

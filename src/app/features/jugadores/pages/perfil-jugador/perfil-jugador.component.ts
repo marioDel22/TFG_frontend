@@ -35,6 +35,7 @@ interface Jugador {
 export class PerfilJugadorComponent implements OnInit {
   jugador: Jugador | null = null;
   anuncio: AnuncioJugador | null = null;
+  misEquipos: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -48,9 +49,23 @@ export class PerfilJugadorComponent implements OnInit {
       next: (res) => {
         this.jugador = res;
         this.anuncio = res.anuncio || null;
+        this.cargarMisEquipos();
       },
       error: (err) => console.error('Error al obtener jugador', err)
     });
+  }
+
+  cargarMisEquipos() {
+    const token = localStorage.getItem('access');
+    const headers = { Authorization: `Bearer ${token}` };
+    this.http.get<any[]>('http://localhost:8000/api/mis-equipos/', { headers }).subscribe({
+      next: (equipos) => this.misEquipos = equipos,
+      error: () => this.misEquipos = []
+    });
+  }
+
+  entrarCalendarioEquipo(equipoId: number) {
+    this.router.navigate(['/equipo', equipoId, 'calendario']);
   }
 
   publicarAnuncio() {

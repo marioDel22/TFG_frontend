@@ -28,6 +28,7 @@ export const routes: Routes = [
     { path: 'equipo/nuevo', component: CrearEquipoComponent, canActivate: [AuthGuard] },  
     { path: 'equipo/:id', component: PerfilEquipoComponent, canActivate: [AuthGuard] },
     { path: 'equipo/:id/editar', component: EditarEquipoComponent, canActivate: [AuthGuard] },
+    { path: 'equipo/:id/calendario', loadComponent: () => import('./features/equipos/pages/calendario-equipo.component').then(m => m.CalendarioEquipoComponent), canActivate: [AuthGuard] },
     { path: 'jugador/:id', component: PerfilJugadorComponent, canActivate: [AuthGuard] },
     { path: 'jugador/:id/editar', component: EditarJugadorComponent, canActivate: [AuthGuard] },
     { path: 'anuncio-equipo/nuevo/:equipoId', component: CrearAnuncioEquipoComponent, canActivate: [AuthGuard] },

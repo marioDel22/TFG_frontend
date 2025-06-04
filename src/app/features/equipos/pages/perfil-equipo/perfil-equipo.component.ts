@@ -41,4 +41,12 @@ export class PerfilEquipoComponent implements OnInit {
     }
     this.router.navigate(['/anuncios-jugador'], { queryParams: { equipoId: this.equipo.id } });
   }
+
+  irACalendario() {
+    if (!this.equipo || !this.equipo.id) {
+      alert('No se ha cargado el equipo');
+      return;
+    }
+    this.router.navigate(['/equipo', this.equipo.id, 'calendario']);
+  }
 }
