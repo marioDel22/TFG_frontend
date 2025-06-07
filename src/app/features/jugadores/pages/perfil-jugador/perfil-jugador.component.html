@@ -13,18 +13,18 @@
       <p><strong>Sexo:</strong> {{ jugador.sexo }}</p>
       <p><strong>Descripción:</strong> {{ jugador.descripcion }}</p>
 
-      <button class="btn btn-primary mt-3" (click)="router.navigate(['/jugador', jugador.id, 'editar'])">
-        Editar perfil
-      </button>
-
-      <div *ngIf="!anuncio">
-        <button class="btn btn-primary" (click)="publicarAnuncio()">Publicar anuncio</button>
+      <div class="d-flex gap-2 mt-3">
+        <button class="btn btn-primary" (click)="router.navigate(['/jugador', jugador.id, 'editar'])">
+          Editar perfil
+        </button>
+        <div *ngIf="!anuncio">
+          <button class="btn btn-primary" (click)="publicarAnuncio()">Publicar anuncio</button>
+        </div>
+        <div *ngIf="anuncio">
+          <button class="btn btn-outline-primary" (click)="verAnuncio()">Ver anuncio</button>
+        </div>
+        <button class="btn btn-primary" (click)="verAnunciosEquipos()">Anuncios de equipos</button>
       </div>
-      <div *ngIf="anuncio">
-        <button class="btn btn-outline-primary" (click)="verAnuncio()">Ver anuncio</button>
-      </div>
-
-      <button class="btn btn-primary ms-2" (click)="verAnunciosEquipos()">Anuncios de equipos</button>
 
       <!-- Si existe anuncio -->
       <div *ngIf="anuncio" class="mt-4">
@@ -38,9 +38,9 @@
     <div class="col-md-4">
       <h4>Mis equipos</h4>
       <ul class="list-group">
-        <li *ngFor="let eq of misEquipos" class="list-group-item d-flex justify-content-between align-items-center">
-          <span>{{ eq.nombre }}</span>
-          <button class="btn btn-outline-info btn-sm" (click)="entrarCalendarioEquipo(eq.id)">Entrar</button>
+        <li *ngFor="let eq of misEquipos" class="list-group-item">
+          <button class="btn btn-outline-info btn-sm" (click)="entrarCalendarioEquipo(eq.id)">Ver</button>
+          <span class="equipo-nombre ms-2">{{ eq.nombre }}</span>
         </li>
         <li *ngIf="misEquipos.length === 0" class="list-group-item text-muted">No perteneces a ningún equipo.</li>
       </ul>

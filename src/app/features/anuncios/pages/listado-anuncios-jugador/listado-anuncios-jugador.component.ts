@@ -25,7 +25,7 @@ export class ListadoAnunciosJugadorComponent implements OnInit {
   posiciones = ['base', 'escolta', 'alero', 'ala_pivot', 'pivot'];
   niveles = ['relajado', 'intermedio', 'alto'];
   dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo', 'indiferente'];
-  horarios = ['manana', 'tarde', 'todo_dia', 'indiferente'];
+  horarios = ['manana', 'tarde', 'todo_dia'];
 
   equipoSeleccionadoId: number | null = null;
 

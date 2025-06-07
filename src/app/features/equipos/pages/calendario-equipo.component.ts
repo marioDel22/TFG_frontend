@@ -14,7 +14,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
     <div class="container py-4">
       <h2>Calendario y chat de equipo</h2>
       <div *ngIf="equipoId">
-        <h4>Equipo ID: {{ equipoId }}</h4>
+        <h4>Equipo: {{ equipoNombre || ('ID: ' + equipoId) }}</h4>
         <div class="row mt-4">
           <div class="col-md-6">
             <h5>Eventos del equipo</h5>
@@ -34,7 +34,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
                 <label class="form-label">Hora</label>
                 <input type="time" class="form-control" style="width: 110px;" [(ngModel)]="nuevoEvento.hora" name="hora" required placeholder="hh:mm" value="19:00">
               </div>
-              <div class="col-md-3">
+              <div class="col-md-12">
                 <label class="form-label">Lugar</label>
                 <input type="text" class="form-control" [(ngModel)]="nuevoEvento.lugar" name="lugar" required>
               </div>
@@ -82,6 +82,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class CalendarioEquipoComponent implements OnInit {
   equipoId: number | null = null;
+  equipoNombre: string | null = null;
   eventos: any[] = [];
   esCreador: boolean = false;
   nuevoEvento: any = { tipo: 'partido', fecha: '', hora: '19:00', lugar: '', descripcion: '' };
@@ -100,10 +101,18 @@ export class CalendarioEquipoComponent implements OnInit {
   ngOnInit(): void {
     this.equipoId = Number(this.route.snapshot.paramMap.get('id')) || null;
     if (this.equipoId) {
+      this.obtenerNombreEquipo();
       this.cargarEventos();
       this.comprobarSiEsCreador();
       this.cargarChatEquipo();
     }
+  }
+
+  obtenerNombreEquipo() {
+    this.http.get<any>(`http://localhost:8000/api/equipos/${this.equipoId}/`).subscribe({
+      next: (equipo) => this.equipoNombre = equipo.nombre,
+      error: () => this.equipoNombre = null
+    });
   }
 
   cargarEventos() {

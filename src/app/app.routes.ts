@@ -47,5 +47,6 @@ export const routes: Routes = [
     { path: 'chat/:id', component: ChatComponent, canActivate: [AuthGuard] },
     { path: 'mis-chats', loadComponent: () => import('./features/chat/pages/mis-chats.component').then(m => m.MisChatsComponent), canActivate: [AuthGuard] },
     { path: 'invitaciones', loadComponent: () => import('./features/jugadores/pages/invitaciones.component').then(m => m.InvitacionesComponent), canActivate: [AuthGuard] },
+    { path: 'perfil', component: PerfilJugadorComponent, canActivate: [AuthGuard] },
     { path: '**', redirectTo: 'login' }
   ];

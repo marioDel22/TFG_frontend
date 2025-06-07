@@ -1,36 +1,67 @@
-<header class="bg-light py-3 mb-4">
-  <div class="container d-flex justify-content-between align-items-center">
-    <div class="d-flex align-items-center">
-      <img src="assets/logo.png" alt="Logo" class="me-3" style="height: 40px;">
-      <h1 class="h4 mb-0">Basketconecta</h1>
+<!-- Navbar con tema de baloncesto -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand"
+       href="#"
+       [class.disabled]="isLoginPage"
+       (click)="!isLoginPage && irAInicio($event)">
+      <i class="bi bi-basketball me-2"></i>
+      BasketConecta
+    </a>
+    <!-- Menú de navegación sin los enlaces de Inicio, Anuncios, Equipos y Jugadores -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <!-- Enlaces eliminados -->
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item" *ngIf="!isLoggedIn">
+          <a class="nav-link" routerLink="/login">Iniciar Sesión</a>
+        </li>
+        <li class="nav-item" *ngIf="!isLoggedIn">
+          <a class="nav-link" routerLink="/registro">Registrarse</a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedIn && !isLoginPage">
+          <a class="nav-link" (click)="logout()">Cerrar Sesión</a>
+        </li>
+      </ul>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-light">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/home">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/equipos">Equipos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/jugadores">Jugadores</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/perfil">Perfil</a>
-          </li>
-          <li class="nav-item">
-            <button (click)="logout()" class="btn btn-outline-danger">Logout</button>
-          </li>
+  </div>
+</nav>
+
+<!-- Contenedor principal con fondo temático -->
+<div class="main-container">
+  <div class="container py-4">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<!-- Footer siempre visible -->
+<footer class="footer mt-auto py-3 bg-dark text-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h5>BasketConecta</h5>
+        <p>Conectando jugadores y equipos de baloncesto</p>
+      </div>
+      <div class="col-md-4">
+        <h5>Enlaces Rápidos</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-light">Sobre Nosotros</a></li>
+          <li><a href="#" class="text-light">Contacto</a></li>
+          <li><a href="#" class="text-light">Términos y Condiciones</a></li>
         </ul>
       </div>
-    </nav>
+      <div class="col-md-4">
+        <h5>Síguenos</h5>
+        <div class="social-links">
+          <a href="#" class="text-light me-2"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="text-light me-2"><i class="bi bi-twitter"></i></a>
+          <a href="#" class="text-light me-2"><i class="bi bi-instagram"></i></a>
+        </div>
+      </div>
+    </div>
   </div>
-</header>
-
-<main class="container py-4">
-  <router-outlet></router-outlet>
-</main>
+</footer>
