@@ -20,6 +20,9 @@ import { ChatComponent } from './features/chat/pages/chat.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { RecuperarPasswordComponent } from './features/auth/pages/recuperar-password/recuperar-password.component';
 import { FaqsComponent } from './features/ayuda/pages/faqs/faqs.component';
+import { SobreNosotrosComponent } from './features/ayuda/pages/sobre-nosotros/sobre-nosotros.component';
+import { ContactoComponent } from './features/ayuda/pages/contacto/contacto.component';
+import { TerminosCondicionesComponent } from './features/ayuda/pages/terminos-condiciones/terminos-condiciones.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -52,5 +55,8 @@ export const routes: Routes = [
     { path: 'perfil', component: PerfilJugadorComponent, canActivate: [AuthGuard] },
     { path: 'auth/recuperar-password', component: RecuperarPasswordComponent },
     { path: 'ayuda', component: FaqsComponent },
+    { path: 'sobre-nosotros', component: SobreNosotrosComponent },
+    { path: 'contacto', component: ContactoComponent },
+    { path: 'terminos-condiciones', component: TerminosCondicionesComponent },
     { path: '**', redirectTo: 'login' }
   ];
