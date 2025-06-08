@@ -6,6 +6,10 @@
         <p>Nombre: {{ jugador.nombre }}</p>
         <p>Posición: {{ jugador.posicion }}</p>
         <button (click)="irAlPerfilJugador()">Ver perfil</button>
+        <div class="d-flex justify-content-center mt-4 gap-2">
+          <button class="btn btn-danger" (click)="eliminarCuenta()">Eliminar cuenta</button>
+          <button class="btn btn-outline-danger" (click)="mostrarFormularioReporte = !mostrarFormularioReporte">Reportar usuario</button>
+        </div>
       </ng-container>
       <ng-template #crearJugadorBlock>
         <p>No has creado un jugador aún.</p>
@@ -20,7 +24,7 @@
         <ul>
           <li *ngFor="let equipo of equipos">
             {{ equipo.nombre }} - {{ equipo.categoria }}
-            <button (click)="irAlPerfilEquipo(equipo.id)">Ver</button>
+            <button class="btn btn-outline-info" (click)="irAlPerfilEquipo(equipo.id)">Ver</button>
           </li>
         </ul>
       </ng-container>
@@ -30,4 +34,35 @@
       <button (click)="crearEquipo()">Crear equipo</button>
     </div>
   </div>
+  
+<style>
+.eliminar-cuenta-footer-izq {
+  width: 100vw;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 2.5rem;
+  margin-left: 2.5rem;
+}
+</style>
+  
+<form *ngIf="mostrarFormularioReporte" (ngSubmit)="enviarReporte()" style="max-width: 400px; margin: 1rem auto;">
+  <div class="mb-2">
+    <label for="motivo" class="form-label">Motivo</label>
+    <select id="motivo" class="form-select" [(ngModel)]="motivoReporte" name="motivo" required>
+      <option value="">Selecciona un motivo</option>
+      <option value="comportamiento inapropiado">Comportamiento inapropiado</option>
+      <option value="acoso o insultos">Acoso o insultos</option>
+      <option value="spam o publicidad">Spam o publicidad</option>
+      <option value="otro">Otro</option>
+    </select>
+  </div>
+  <div class="mb-2">
+    <label for="descripcion" class="form-label">Descripción</label>
+    <textarea id="descripcion" class="form-control" [(ngModel)]="descripcionReporte" name="descripcion" rows="2" required></textarea>
+  </div>
+  <button class="btn btn-danger" type="submit" [disabled]="enviandoReporte">Enviar reporte</button>
+  <button class="btn btn-link ms-2" type="button" (click)="mostrarFormularioReporte = false">Cancelar</button>
+</form>
+<div *ngIf="mensajeReporte" class="alert alert-info mt-2 text-center">{{ mensajeReporte }}</div>
+<div *ngIf="errorReporte" class="alert alert-danger mt-2 text-center">{{ errorReporte }}</div>
   

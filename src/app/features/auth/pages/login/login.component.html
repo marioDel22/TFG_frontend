@@ -18,6 +18,10 @@
         </form>
         <p *ngIf="error" class="text-danger text-center mt-3">{{ error }}</p>
 
+        <div class="text-center mt-2">
+          <a routerLink="/auth/recuperar-password">¿Olvidaste tu contraseña?</a>
+        </div>
+
         <p class="text-center mt-3">
           ¿No tienes cuenta?
           <a routerLink="/registro">Regístrate aquí</a>

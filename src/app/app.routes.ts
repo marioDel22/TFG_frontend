@@ -18,6 +18,8 @@ import { VerAnuncioJugadorPublicoComponent } from './features/anuncios/pages/ver
 import { VerAnuncioEquipoPublicoComponent } from './features/anuncios/pages/ver-anuncio-equipo-publico/ver-anuncio-equipo-publico.component';
 import { ChatComponent } from './features/chat/pages/chat.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { RecuperarPasswordComponent } from './features/auth/pages/recuperar-password/recuperar-password.component';
+import { FaqsComponent } from './features/ayuda/pages/faqs/faqs.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -48,5 +50,7 @@ export const routes: Routes = [
     { path: 'mis-chats', loadComponent: () => import('./features/chat/pages/mis-chats.component').then(m => m.MisChatsComponent), canActivate: [AuthGuard] },
     { path: 'invitaciones', loadComponent: () => import('./features/jugadores/pages/invitaciones.component').then(m => m.InvitacionesComponent), canActivate: [AuthGuard] },
     { path: 'perfil', component: PerfilJugadorComponent, canActivate: [AuthGuard] },
+    { path: 'auth/recuperar-password', component: RecuperarPasswordComponent },
+    { path: 'ayuda', component: FaqsComponent },
     { path: '**', redirectTo: 'login' }
   ];
