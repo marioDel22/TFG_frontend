@@ -39,9 +39,8 @@ export class CrearEquipoComponent {
           this.router.navigate(['/inicio']);
         }
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error al crear equipo:', err);
-        // Aquí podrías mostrar un mensaje de error al usuario
       }
     });
   }

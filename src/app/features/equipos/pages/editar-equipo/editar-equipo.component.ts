@@ -52,9 +52,8 @@ export class EditarEquipoComponent implements OnInit {
         console.log('Respuesta del servidor:', res); // Para depuración
         this.router.navigate(['/equipo', this.equipoId]);
       },
-      error: (err) => {
-        console.error('Error al actualizar el equipo:', err);
-        // Aquí podrías mostrar un mensaje de error al usuario
+      error: (err: any) => {
+        console.error('Error al actualizar equipo:', err);
       }
     });
   }
